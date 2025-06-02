@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@/lib/auth";
+import { JWT_SECRET } from "@/lib/constants";
 
 const protectedRoute = ["/dashboard", "/admin", "/owner"];
 

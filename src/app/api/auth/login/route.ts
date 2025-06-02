@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "@/lib/auth";
+import { JWT_SECRET } from "@/lib/constants";
 
 export async function POST(req: NextRequest) {
   try {

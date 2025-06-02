@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Router from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -35,6 +34,51 @@ export default function LoginPage() {
 
       //save token
       localStorage.setItem("token", data.token);
-    } catch (error) {}
+
+      if (data.user.role === "ADMIN") {
+        router.push("/admin");
+      } else if (data.user.role === "STORE_OWNER") {
+        router.push("/store");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      setMessage(error.message);
+    }
   };
+  return (
+    <div className="max-w-md mx-auto mt-10 p-4 border rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-4">Login</h1>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-2 rounded"
+        >
+          Log In
+        </button>
+      </form>
+      {message && (
+        <p className="mt-4 text-center text-sm text-red-500">{message}</p>
+      )}
+    </div>
+  );
 }
