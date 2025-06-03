@@ -13,7 +13,7 @@ interface User {
 export default function AdminUserPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [roleFilter, setRolefilter] = useState("");
+  const [roleFilter, setRoleFilter] = useState("");
   const [sortField, setSortField] = useState<keyof User>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
@@ -27,26 +27,20 @@ export default function AdminUserPage() {
   }
 
   useEffect(() => {
-    fetch("/api/admin/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
+    const token = localStorage.getItem("token");
+
+    fetch("/api/admin/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return res.json();
+      })
+      .then((data) => setUsers(data))
+      .catch((err) => console.error(err));
   }, []);
-
-  // There is some error here thats why i comment will check later
-
-  //   useEffect(() => {
-  //     fetch("/api/admin/users")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (Array.isArray(data)) {
-  //           setUsers(data);
-  //         } else if (Array.isArray(data.users)) {
-  //           setUsers(data.users);
-  //         } else {
-  //           console.error("Unexpected API response", data);
-  //         }
-  //       });
-  //   }, []);
 
   const filterUsers = users
     .filter((user) =>
@@ -77,7 +71,7 @@ export default function AdminUserPage() {
         <select
           className="border p-2 rounded"
           value={roleFilter}
-          onChange={(e) => setRolefilter(e.target.value)}
+          onChange={(e) => setRoleFilter(e.target.value)}
         >
           <option value="">All Roles</option>
           <option value="USER">User</option>

@@ -12,7 +12,7 @@ export function getTokenData(req: Request): DecodedToken | null {
   try {
     const authHeader = req.headers.get("authorization");
 
-    console.log("Raw authorization header:", authHeader);
+    // console.log("Raw authorization header:", authHeader);
     if (!authHeader || !authHeader.startsWith("Bearer")) {
       return null;
     }
@@ -20,6 +20,8 @@ export function getTokenData(req: Request): DecodedToken | null {
     const token = authHeader.split(" ")[1];
 
     const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
+
+    console.log(decoded);
 
     return decoded;
   } catch (error) {
