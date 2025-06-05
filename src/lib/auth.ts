@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export interface DecodedToken {
   id: string;
   email: string;
-  role: "USER" | "ADMIN" | "OWNER";
+  role: "USER" | "ADMIN" | "STORE_OWNER";
 }
 
 export function getTokenData(req: Request): DecodedToken | null {
