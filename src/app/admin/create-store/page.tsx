@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function CreateStorePage() {
   const [form, setForm] = useState({
@@ -12,6 +13,8 @@ export default function CreateStorePage() {
 
   const [owners, setOwners] = useState<any[]>([]);
   const [message, setMessage] = useState("");
+
+  useProtectedRoute(["ADMIN"]);
 
   //   const token = localStorage.getItem("token");
   const token =

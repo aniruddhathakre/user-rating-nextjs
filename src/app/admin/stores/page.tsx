@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function AdminStores() {
   const [stores, setStores] = useState([]);
   const [search, setSearch] = useState("");
+
+  useProtectedRoute(["ADMIN"]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

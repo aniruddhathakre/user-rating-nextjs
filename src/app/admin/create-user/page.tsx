@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function CreateUserPage() {
   const [form, setForm] = useState({
@@ -12,6 +13,8 @@ export default function CreateUserPage() {
   });
 
   const [message, setMessage] = useState("");
+
+  useProtectedRoute(["ADMIN"]);
 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });

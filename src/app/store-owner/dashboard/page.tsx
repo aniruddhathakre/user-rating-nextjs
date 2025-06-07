@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function StoreOwnerDashboard() {
+  useProtectedRoute(["STORE_OWNER"]);
+
   const [data, setData] = useState<{
     storeName: string;
     averageRating: number;

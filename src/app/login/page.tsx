@@ -34,13 +34,14 @@ export default function LoginPage() {
 
       //save token
       localStorage.setItem("token", data.token);
+      document.cookie = `token=${data.token}; path=/`;
 
       if (data.user.role === "ADMIN") {
         router.push("/admin");
       } else if (data.user.role === "STORE_OWNER") {
-        router.push("/store");
+        router.push("/store-owner/dashboard");
       } else {
-        router.push("/dashboard");
+        router.push("/user/stores");
       }
     } catch (error: any) {
       setMessage(error.message);

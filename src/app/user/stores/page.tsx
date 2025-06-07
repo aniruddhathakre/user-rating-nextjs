@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function UserStores() {
   const [stores, setStores] = useState([]);
+  useProtectedRoute(["USER"]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

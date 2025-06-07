@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 interface User {
   id: string;
@@ -16,6 +17,8 @@ export default function AdminUserPage() {
   const [roleFilter, setRoleFilter] = useState("");
   const [sortField, setSortField] = useState<keyof User>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  useProtectedRoute(["ADMIN"]);
 
   function handleSort(field: "name" | "email" | "address" | "role") {
     if (sortField === field) {

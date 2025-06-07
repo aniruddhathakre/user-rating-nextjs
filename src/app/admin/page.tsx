@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 export default function AdminDashboard() {
+  useProtectedRoute(["ADMIN"]);
+
   const [stats, setStats] = useState({
     userCount: 0,
     storeCount: 0,
